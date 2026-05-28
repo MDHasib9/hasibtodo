@@ -1,0 +1,18 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Todo {
+  id        String   @id @default(cuid())
+  text      String
+  userId    String // This will store the Clerk user ID directly (e.g., "user_...")
+  createdAt DateTime @default(now())
+
+  @@index([userId]) // Keeps queries fast when fetching a specific user's todos
+}
